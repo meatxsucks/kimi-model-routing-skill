@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Instala skill, agentes y regla de routing en ~/.claude sin pisar lo existente.
+# Instala skill, agentes y regla de routing en ~/.kimi-code sin pisar lo existente.
 set -euo pipefail
 
 aqui="$(cd "$(dirname "$0")" && pwd)"
-destino="${CLAUDE_HOME:-$HOME/.claude}"
+destino="${KIMI_CODE_HOME:-$HOME/.kimi-code}"
 fecha="$(date +%Y%m%d)"
-marca="<!-- model-routing -->"
+marca="<!-- kimi-model-routing -->"
 
 mkdir -p "$destino/agents" "$destino/skills"
 
@@ -24,15 +24,15 @@ rm -rf "$destino/skills/model-routing"
 cp -R "$aqui/skills/model-routing" "$destino/skills/model-routing"
 echo "skill: model-routing"
 
-# Regla en CLAUDE.md global, una sola vez
-archivo="$destino/CLAUDE.md"
+# Regla en AGENTS.md global, una sola vez
+archivo="$destino/AGENTS.md"
 touch "$archivo"
 if grep -q "$marca" "$archivo"; then
-  echo "CLAUDE.md: la regla ya estaba"
+  echo "AGENTS.md: la regla ya estaba"
 else
   cp "$archivo" "$archivo.bak-$fecha"
-  { printf '\n%s\n' "$marca"; cat "$aqui/snippets/CLAUDE-routing.md"; } >> "$archivo"
-  echo "CLAUDE.md: regla agregada"
+  { printf '\n%s\n' "$marca"; cat "$aqui/snippets/KIMI-routing.md"; } >> "$archivo"
+  echo "AGENTS.md: regla agregada"
 fi
 
-echo "Listo. Revisa los modelos con /tasks."
+echo "Listo. Revisa los agentes con ls $destino/agents."

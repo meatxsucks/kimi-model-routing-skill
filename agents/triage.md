@@ -2,7 +2,7 @@
 name: triage
 description: Úsalo PRIMERO en cada tarea de código. Clasifica la tarea y devuelve una ruta.
 tools: Read, Grep, Glob
-model: sonnet
+model: kimi-code/k3
 effort: low
 memory: project
 ---
